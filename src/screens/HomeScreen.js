@@ -1,17 +1,30 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { StyleSheet, SafeAreaView } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { EvilIcons, AntDesign } from "@expo/vector-icons";
 import EventList from "../components/EventList";
+import AddEventModal from "../components/addEventModal";
 import { Context as EventsContext } from "../context/eventsContext";
 
 export default function App() {
-  const { state, fetchEvents } = useContext(EventsContext);
+  const { state, fetchEvents, deleteEvent } = useContext(EventsContext);
+  const [modalVisible, setmodalVisible] = useState(false);
+  this.setmodalVisible = setmodalVisible;
 
   return (
     <SafeAreaView style={styles.container}>
       <NavigationEvents onWillFocus={fetchEvents} />
-      <EventList events={state.events} />
+      <AddEventModal modalVisible={modalVisible} />
+      <EventList
+        events={state.events.map(item => {
+          return {
+            ...item,
+            deleteEvent: () => {
+              deleteEvent(item._id);
+            }
+          };
+        })}
+      />
     </SafeAreaView>
   );
 }
@@ -22,7 +35,12 @@ App.navigationOptions = ({ navigation }) => {
     headerLeft: <EvilIcons name="gear" size={32} />,
     headerLeftContainerStyle: styles.optionsIcon,
     headerRight: (
-      <AntDesign name="pluscircleo" size={25} style={styles.optionsIcon} />
+      <AntDesign
+        name="pluscircleo"
+        size={25}
+        style={styles.optionsIcon}
+        onPress={() => this.setmodalVisible(true)}
+      />
     ),
     headerRightContainerStyle: styles.addIcon
   };

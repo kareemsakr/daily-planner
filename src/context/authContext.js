@@ -36,7 +36,7 @@ const Provider = ({ children }) => {
         const { user, token } = data;
         await AsyncStorage.setItem("token", token);
         dispatch({ type: "signUp", payload: { user, token } });
-        navigate("TrackListScreen");
+        navigate("mainFlow");
       } catch (error) {
         console.log(error.message);
         if (error.response.status === 500) {
@@ -54,7 +54,7 @@ const Provider = ({ children }) => {
       const { user, token } = data;
       await AsyncStorage.setItem("token", token);
       dispatch({ type: "login", payload: { user, token } });
-      navigate("TrackListScreen");
+      navigate("mainFlow");
     } catch (error) {
       if (error.response.status === 500) {
         dispatch({ type: "serverError", payload: "Something went wrong" });
