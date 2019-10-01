@@ -1,16 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, SafeAreaView } from "react-native";
 import { NavigationEvents } from "react-navigation";
 import { EvilIcons, AntDesign } from "@expo/vector-icons";
 import EventList from "../components/EventList";
 import AddEventModal from "../components/addEventModal";
 import { Context as EventsContext } from "../context/eventsContext";
+import usePushNotifications from "../hooks/usePushNotifications";
 
 export default function App() {
   const { state, fetchEvents, deleteEvent } = useContext(EventsContext);
   const [modalVisible, setmodalVisible] = useState(false);
   this.setmodalVisible = setmodalVisible;
 
+  useEffect(() => {
+    usePushNotifications();
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <NavigationEvents onWillFocus={fetchEvents} />

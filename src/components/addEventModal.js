@@ -44,7 +44,7 @@ export default addEventModal = ({ modalVisible }) => {
           style={styles.titleText}
           value={title}
           onChangeText={setTitle}
-          placeholder="Title Or Event name..."
+          placeholder="Enter Title Or Event name..."
         />
         <Entypo name="email" size={20} />
         <Spacer>
@@ -83,7 +83,11 @@ const styles = StyleSheet.create({
   },
   titleText: {
     marginBottom: 19,
-    fontSize: 19
+    fontSize: 19,
+    width: "90%",
+    height: 45,
+
+    textAlign: "center"
   },
   dateText: {
     fontSize: 19
