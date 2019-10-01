@@ -1,8 +1,9 @@
 import axios from "axios";
 import { AsyncStorage } from "react-native";
+import Constants from "expo-constants";
 
 const instance = axios.create({
-  baseURL: "https://2059ddfb.ngrok.io"
+  baseURL: Constants.manifest.extra.baseURL
 });
 
 instance.interceptors.request.use(async config => {
