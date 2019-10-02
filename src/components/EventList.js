@@ -5,9 +5,9 @@ import Event from "./Event";
 export default memo(({ events }) => {
   let sections = [];
   events
-    .sort((a, b) => new Date(a.datetime) - new Date(b.datetime))
+    .sort((a, b) => a.datetime - b.datetime)
     .map(i => {
-      const day = new Date(i.datetime);
+      const day = i.datetime;
       //check if day exists
       const index = sections
         .map(x => x.day.toString().substring(0, 10))
@@ -49,10 +49,11 @@ export default memo(({ events }) => {
 const styles = StyleSheet.create({
   container: {},
   headerText: {
-    fontSize: 25
+    fontSize: 25,
+    color: "white"
   },
   headerContainer: {
-    backgroundColor: "rgba(3, 202, 252,1)",
+    backgroundColor: "#007aff",
     padding: 10,
     margin: 15,
     borderRadius: 5
