@@ -1,9 +1,11 @@
 import axios from "axios";
 import { AsyncStorage } from "react-native";
-import Constants from "expo-constants";
+// import Constants from "expo-constants";
+import { API_KEY } from "react-native-dotenv";
 
+//console.log(API_KEY);
 const instance = axios.create({
-  baseURL: Constants.manifest.extra.baseURL
+  baseURL: API_KEY
 });
 
 instance.interceptors.request.use(async config => {

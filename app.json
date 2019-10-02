@@ -2,6 +2,7 @@
   "expo": {
     "name": "daily-planner",
     "slug": "daily-planner",
+    "description": "A simple daily planner app that allows you to add your daily activies with a simple and intuitice UI and you will receive a push notification every night with the events that you have qeued for the next day.",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": ["ios", "android", "web"],
