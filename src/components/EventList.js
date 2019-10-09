@@ -1,30 +1,25 @@
 import React, { memo } from "react";
 import { SectionList, StyleSheet, Text, View } from "react-native";
 import Event from "./Event";
+import Moment from "moment";
 
 export default memo(({ events }) => {
+  let eventsByDay = events.reduce((accumalator, currentValue) => {
+    const eventDay = Moment(currentValue.datetime)
+      .startOf("day")
+      .toDate();
+    return {
+      ...accumalator,
+      [eventDay]: [...(accumalator[eventDay] || []), currentValue]
+    };
+  }, {});
   let sections = [];
-  events
-    .sort((a, b) => a.datetime - b.datetime)
-    .map(i => {
-      const day = i.datetime;
-      //check if day exists
-      const index = sections
-        .map(x => x.day.toString().substring(0, 10))
-        .indexOf(day.toString().substring(0, 10));
-      //if yes add to the day section
-      if (index !== -1) {
-        sections[index].data.push(i);
-      }
-      //push new section
-      else {
-        //console.log(i.datetime);
-        sections.push({
-          day,
-          data: [i]
-        });
-      }
-    });
+
+  sections = Object.keys(eventsByDay).map(day => ({
+    day,
+    data: eventsByDay[day]
+  }));
+
   const today = Date(Date.now())
     .toString()
     .substring(0, 10);
